@@ -23,7 +23,7 @@ This data is publicly available on [`Kaggle`](https://www.kaggle.com/datasets/ra
 
 The dataset ships with its own stated hypotheses about which fields should predict churn (e.g., "higher credit score → less likely to leave," "has a credit card → less likely to leave," "higher balance / higher salary → less likely to leave," "longer tenure → more loyal."). Part of this analysis is testing those assumptions directly against the data rather than taking them at face value and seeing whether these assumptions hold true.
 
-10,000 customer records, one row per customer. Source: [`Customer-Churn-Records.csv`](Customer-Churn-Records.csv).
+10,000 customer records, one row per customer. Source: [`Customer-Churn-Records.csv`](supplementary/Customer-Churn-Records.csv).
 
 | Field | Description |
 |---|---|
@@ -68,7 +68,7 @@ The data is mostly clean. One interesting observation from univariate analysis: 
 
 #### Correlation heatmap
 
-![Correlation heatmap of numeric fields](figures/correlation_heatmap.png)
+![Correlation heatmap of numeric fields](supplementary/figures/correlation_heatmap.png)
 
 There is no serious multicollinearity between the continuous variables — each contributes independent information. The largest correlation is Age and Balance at 0.028, which makes intuitive sense (older customers tend to hold higher balances).
 
@@ -91,7 +91,7 @@ Baseline churn rate: **20.38%**. Females (45.4% of customers) churn at 25.07%; m
 
 #### 1. NumOfProducts — strongest driver
 
-![Churn count by number of products](figures/numofproducts_churn.png)
+![Churn count by number of products](supplementary/figures/numofproducts_churn.png)
 
 | NumOfProducts | Count | Exited Customers | Churn Rate | Male % | Average Age |
 |---|---|---|---|---|---|
@@ -110,20 +110,20 @@ As customers acquire more products, churn risk rises sharply — 100% of custome
 
 Age was split into 10 quantile bins to examine churn concentration. The plot below shows the number of customers by age bin, stacked by whether a customer within an age bin has exited the bank or not.
 
-![Age bin split by exited](figures/age_bin_exited.png)
+![Age bin split by exited](supplementary/figures/age_bin_exited.png)
 
 We can eyeball from the bar chart that older customers are meaningfully more likely to leave the bank.
 
 
 The plot below zooms into the "Exited" customers by age bin as seen above and shows the total sum of exits split by age bin:
 
-![Sum of exits by age bin](figures/age_bin_exit_sum.png)
+![Sum of exits by age bin](supplementary/figures/age_bin_exit_sum.png)
 
 The customer base is evenly distributed by age (28.94% are 42+), but that 28.94% accounts for **59.13%** of all exits — a total of 2,038 exits (20.38% churn rate), of which 1,205 belong to customers aged 42 and above.
 
 I investigated whether the age bins split by gender held any significance:
 
-![Age bin split by gender](figures/age_bin_gender.png)
+![Age bin split by gender](supplementary/figures/age_bin_gender.png)
 
 Gender is evenly split across all age bins, so the age effect isn't confounded by gender composition.
 
@@ -160,7 +160,7 @@ At 1–2 products, Germany's ~2x churn premium over France/Spain holds. At 3+ pr
 
 #### 4. IsActiveMember
 
-![Churn rate heatmap by geography, gender, and activity status](figures/active_member_churn_heatmap.png)
+![Churn rate heatmap by geography, gender, and activity status](supplementary/figures/active_member_churn_heatmap.png)
 
 **Inactive female customers in Germany have the highest churn rate at 44.6%.**
 
@@ -178,7 +178,7 @@ At 1–2 products, Germany's ~2x churn premium over France/Spain holds. At 3+ pr
 | High (675–800) | 3,476 | 19.41% |
 | Very High (800–925) | 655 | 19.54% |
 
-![Churn rate heatmap by credit score band and geography](figures/credit_score_churn_heatmap.png)
+![Churn rate heatmap by credit score band and geography](supplementary/figures/credit_score_churn_heatmap.png)
 
 Only the "Very Low" band stands out with a materially higher churn rate — everything from Low to Very High is roughly flat around 19–22%. Splitting by geography, German customers churn at almost double the rate of France/Spain within every credit score band, reaching 62.5% for Germans in the Very Low band. That sample is small (66 customers total), so treat the exact percentage with some caution, but the direction is consistent with every other Germany finding above.
 
@@ -186,7 +186,7 @@ Only the "Very Low" band stands out with a materially higher churn rate — ever
 
 Four factors came out as independently significant in the revised regression: **Geography = Germany**, **IsActiveMember = inactive**, **Age > 42**, and **NumOfProducts ≥ 3**. Stacking them into a single 0–4 score per customer tests whether these effects compound.
 
-![Customer count by risk score, split by exited](figures/risk_score_churn.png)
+![Customer count by risk score, split by exited](supplementary/figures/risk_score_churn.png)
 
 | Risk Score | Count | % of customers | Churn rate |
 |---|---|---|---|
@@ -208,26 +208,27 @@ The four factors compound into a clean, near-monotonic staircase. Customers with
 
 ```
 Bank Churn Python/
-├── EDA.ipynb                    # Full analysis notebook: data load, EDA, regression, segmentation
-├── README.md                    # This file
-├── figures/                     # Chart images exported from the notebook via plt.savefig()
-├── Customer-Churn-Records.csv   # Source dataset
-├── .env.example                 # Template for local MySQL credentials
-├── .env                         # Local MySQL credentials (gitignored, never committed)
-└── summary.txt                  # Saved statsmodels output from the initial regression
+├── EDA.ipynb                          # Full analysis notebook: data load, EDA, regression, segmentation
+├── README.md                          # This file
+└── supplementary/                     # Source data, exported charts, and regression output
+    ├── Customer-Churn-Records.csv     # Source dataset
+    ├── figures/                       # Chart images exported from the notebook via plt.savefig()
+    ├── Initial Regression.txt         # Saved statsmodels output from the initial regression
+    ├── .env.example                   # Template for local MySQL credentials
+    └── .env                           # Local MySQL credentials (gitignored, never committed)
 ```
 
 ## Setup & Usage
 
 1. Clone the repo.
 2. Choose a data source:
-   - **MySQL** (default/active path): copy `.env.example` to `.env` and fill in your local MySQL credentials, then load the `customer churn records` table with the contents of `Customer-Churn-Records.csv`.
-   - **CSV** (no database needed): in the notebook, comment out the SQL cells near the top and uncomment `df = pd.read_csv("Customer-Churn-Records.csv")` instead.
+   - **MySQL** (default/active path): copy `supplementary/.env.example` to `supplementary/.env` and fill in your local MySQL credentials, then load the `customer churn records` table with the contents of `supplementary/Customer-Churn-Records.csv`.
+   - **CSV** (no database needed): in the notebook, comment out the SQL cells near the top and uncomment `df = pd.read_csv("supplementary/Customer-Churn-Records.csv")` instead.
 3. Install dependencies:
    ```bash
    pip install pandas numpy matplotlib seaborn statsmodels mysql-connector-python python-dotenv jupyter
    ```
-4. Open `EDA.ipynb` and run all cells top to bottom. Chart images will regenerate into `figures/` automatically.
+4. Open `EDA.ipynb` and run all cells top to bottom. Chart images will regenerate into `supplementary/figures/` automatically.
 
 ## Tech Stack
 
