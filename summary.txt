@@ -1,0 +1,38 @@
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 Exited   No. Observations:                10000
+Model:                          Logit   Df Residuals:                     9979
+Method:                           MLE   Df Model:                           20
+Date:                Thu, 17 Sep 2026   Pseudo R-squ.:                  0.9846
+Time:                        02:28:13   Log-Likelihood:                -77.818
+converged:                       True   LL-Null:                       -5056.3
+Covariance Type:            nonrobust   LLR p-value:                     0.000
+========================================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------------
+const                   -9.0958      2.721     -3.343      0.001     -14.429      -3.763
+CreditScore              0.0006      0.003      0.217      0.828      -0.005       0.006
+Age                      0.0984      0.026      3.817      0.000       0.048       0.149
+Tenure                  -0.0640      0.096     -0.666      0.505      -0.252       0.124
+Balance               1.829e-06   5.38e-06      0.340      0.734   -8.71e-06    1.24e-05
+NumOfProducts           -0.2782      0.344     -0.808      0.419      -0.953       0.397
+EstimatedSalary       1.632e-06    4.6e-06      0.355      0.723   -7.39e-06    1.07e-05
+Point Earned            -0.0027      0.001     -1.972      0.049      -0.005   -1.62e-05
+Geography_Germany       -0.7021      0.726     -0.967      0.334      -2.125       0.721
+Geography_Spain          0.2218      0.783      0.283      0.777      -1.313       1.756
+Gender_Male             -0.3051      0.550     -0.555      0.579      -1.382       0.772
+Card Type_GOLD          -0.6639      0.802     -0.828      0.408      -2.235       0.907
+Card Type_PLATINUM      -0.7102      0.758     -0.937      0.349      -2.197       0.776
+Card Type_SILVER         0.2792      0.808      0.345      0.730      -1.305       1.864
+Satisfaction Score_2     0.5708      1.108      0.515      0.606      -1.600       2.742
+Satisfaction Score_3    -1.9641      1.010     -1.945      0.052      -3.943       0.015
+Satisfaction Score_4     0.6029      1.100      0.548      0.584      -1.553       2.759
+Satisfaction Score_5    -1.4874      1.049     -1.418      0.156      -3.543       0.568
+HasCrCard_1             -0.0333      0.599     -0.056      0.956      -1.207       1.141
+IsActiveMember_1        -1.7201      0.626     -2.750      0.006      -2.946      -0.494
+Complain_1              15.0495      1.117     13.468      0.000      12.859      17.240
+========================================================================================
+
+Possibly complete quasi-separation: A fraction 0.40 of observations can be
+perfectly predicted. This might indicate that there is complete
+quasi-separation. In this case some parameters will not be identified.

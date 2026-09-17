@@ -1,0 +1,13 @@
+# Environment variables / secrets
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+EDA.ipynb.bak
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
