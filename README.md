@@ -1,6 +1,6 @@
 # Bank Churn Analytics Case Study
 
-Exploratory data analysis and driver identification for customer churn at a retail bank, using logistic regression, segmentation, and a combined risk score to find out which customers are leaving and why.
+Exploratory data analysis and driver identification for customer churn at a retail bank using logistic regression, segmentation, and a combined risk score to find out which customers are leaving and why.
 
 ## Overview and Business Task
 
@@ -204,18 +204,36 @@ The four factors compound into a clean, near-monotonic staircase. Customers with
 - [ ] Surface the Risk Score ≥ 3 segment as a headline "high priority" KPI on any churn dashboard.
 - [ ] (Optional) Build a predictive model in a separate notebook if the goal moves beyond driver analysis toward scoring individual customers.
 
+## Power BI Dashboard
+
+![Bank Churn Dashboard showcase](supplementary/PowerBI%20Dashboard%20Images/Dashboard%20Showcase.png)
+
+The findings above are also packaged as a single-page Power BI dashboard: headline KPIs (total customers, exits, churn rate), the gender split, and churn rate by age band, geography, risk score, activity status (gender and geography), number of products, and credit score band.
+
+**Ways to view it**
+- **Video walkthrough** (about 25 seconds): [`PowerBI Bank Churn Analytics Video Showcase.mp4`](PowerBI%20Bank%20Churn%20Analytics%20Video%20Showcase.mp4)
+- **PDF snapshot** (static, one page): [`Bank Churn Analytics Dashboard.pdf`](Bank%20Churn%20Analytics%20Dashboard.pdf)
+- **Interactive**: download [`Bank Churn Analytics Dashboard.pbix`](Bank%20Churn%20Analytics%20Dashboard.pbix) and open it in Power BI Desktop (free, Windows only).
+
+**Interacting with it**
+- The France / Germany / Spain tiles at the top filter every visual by country, and the Customer ID box looks up an individual customer.
+
 ## Project Structure
 
 ```
-Bank Churn Python/
-├── EDA.ipynb                          # Full analysis notebook: data load, EDA, regression, segmentation
-├── README.md                          # This file
-└── supplementary/                     # Source data, exported charts, and regression output
-    ├── Customer-Churn-Records.csv     # Source dataset
-    ├── figures/                       # Chart images exported from the notebook via plt.savefig()
-    ├── Initial Regression.txt         # Saved statsmodels output from the initial regression
-    ├── .env.example                   # Template for local MySQL credentials
-    └── .env                           # Local MySQL credentials (gitignored, never committed)
+Bank Churn Analytics Project/
+├── EDA.ipynb                                        # Full analysis notebook: data load, EDA, regression, segmentation
+├── README.md                                        # This file
+├── Bank Churn Analytics Dashboard.pbix              # Power BI dashboard (open in Power BI Desktop)
+├── Bank Churn Analytics Dashboard.pdf               # Static one-page PDF export of the dashboard
+├── PowerBI Bank Churn Analytics Video Showcase.mp4  # Short video walkthrough of the dashboard
+└── supplementary/                                   # Source data, exported charts, dashboard screenshots, and regression output
+    ├── Customer-Churn-Records.csv                   # Source dataset
+    ├── figures/                                     # Chart images exported from the notebook via plt.savefig()
+    ├── PowerBI Dashboard Images/                    # Dashboard screenshots shown in this README
+    ├── Initial Regression.txt                       # Saved statsmodels output from the initial regression
+    ├── .env.example                                 # Template for local MySQL credentials
+    └── .env                                         # Local MySQL credentials (gitignored, never committed)
 ```
 
 ## Setup & Usage
@@ -232,4 +250,4 @@ Bank Churn Python/
 
 ## Tech Stack
 
-Python · pandas · numpy · matplotlib · seaborn · statsmodels · MySQL
+Python · pandas · numpy · matplotlib · seaborn · statsmodels · MySQL · Power BI
