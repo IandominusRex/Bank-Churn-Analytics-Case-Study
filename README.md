@@ -87,7 +87,7 @@ The revised regression (with `Complain` removed) identified six independent driv
 
 ### Churn rate breakdown by factor
 
-Baseline churn rate: **20.38%**. Females (45.4% of customers) churn at 25.07%; males (54.6%) churn at 16.47%.
+Baseline churn rate: **20.38%**. Females (45.4% of customers) churn at 25.07%; males (54.6% of customers) churn at 16.47%.
 
 #### 1. NumOfProducts — strongest driver
 
@@ -211,9 +211,9 @@ The four factors compound into a clean, near-monotonic staircase. Customers with
 The findings above are also packaged as a single-page Power BI dashboard: headline KPIs (total customers, exits, churn rate), the gender split, and churn rate by age band, geography, risk score, activity status (gender and geography), number of products, and credit score band.
 
 **Ways to view it**
-- **Video walkthrough** (about 25 seconds): [`PowerBI Bank Churn Analytics Video Showcase.mp4`](PowerBI%20Bank%20Churn%20Analytics%20Video%20Showcase.mp4)
+- **Video walkthrough** (about 25 seconds): [`PowerBI Bank Churn Analytics Video Showcase.mp4`](supplementary/PowerBI%20Dashboard/PowerBI%20Bank%20Churn%20Analytics%20Video%20Showcase.mp4)
 - **PDF snapshot** (static, one page): [`Bank Churn Analytics Dashboard.pdf`](Bank%20Churn%20Analytics%20Dashboard.pdf)
-- **Interactive**: download [`Bank Churn Analytics Dashboard.pbix`](Bank%20Churn%20Analytics%20Dashboard.pbix) and open it in Power BI Desktop (free, Windows only).
+- **Interactive**: download [`Bank Churn Analytics Dashboard.pbix`](supplementary/PowerBI%20Dashboard/Bank%20Churn%20Analytics%20Dashboard.pbix) and open it in Power BI Desktop (free, Windows only).
 
 **Interacting with it**
 - The France / Germany / Spain tiles at the top filter every visual by country, and the Customer ID box looks up an individual customer.
@@ -222,18 +222,19 @@ The findings above are also packaged as a single-page Power BI dashboard: headli
 
 ```
 Bank Churn Analytics Project/
-├── EDA.ipynb                                        # Full analysis notebook: data load, EDA, regression, segmentation
-├── README.md                                        # This file
-├── Bank Churn Analytics Dashboard.pbix              # Power BI dashboard (open in Power BI Desktop)
-├── Bank Churn Analytics Dashboard.pdf               # Static one-page PDF export of the dashboard
-├── PowerBI Bank Churn Analytics Video Showcase.mp4  # Short video walkthrough of the dashboard
-└── supplementary/                                   # Source data, exported charts, dashboard screenshots, and regression output
-    ├── Customer-Churn-Records.csv                   # Source dataset
-    ├── figures/                                     # Chart images exported from the notebook via plt.savefig()
-    ├── PowerBI Dashboard Images/                    # Dashboard screenshots shown in this README
-    ├── Initial Regression.txt                       # Saved statsmodels output from the initial regression
-    ├── .env.example                                 # Template for local MySQL credentials
-    └── .env                                         # Local MySQL credentials (gitignored, never committed)
+├── EDA.ipynb                                                # Full analysis notebook: data load, EDA, regression, segmentation
+├── README.md                                                # This file
+├── Bank Churn Analytics Dashboard.pdf                       # Static one-page PDF export of the dashboard
+└── supplementary/                                           # Source data, exported charts, Power BI dashboard files, and regression output
+    ├── Customer-Churn-Records.csv                           # Source dataset
+    ├── figures/                                             # Chart images exported from the notebook via plt.savefig()
+    ├── PowerBI Dashboard/                                   # Power BI dashboard and video walkthrough
+    │   ├── Bank Churn Analytics Dashboard.pbix              # Interactive dashboard (open in Power BI Desktop)
+    │   └── PowerBI Bank Churn Analytics Video Showcase.mp4  # Short video walkthrough of the dashboard
+    ├── PowerBI Dashboard Images/                            # Dashboard screenshots shown in this README
+    ├── Initial Regression.txt                               # Saved statsmodels output from the initial regression
+    ├── .env.example                                         # Template for local MySQL credentials
+    └── .env                                                 # Local MySQL credentials (gitignored, never committed)
 ```
 
 ## Setup & Usage
