@@ -7,12 +7,12 @@ Exploratory data analysis and driver identification for customer churn at a reta
 <img src="supplementary/PowerBI%20Dashboard%20Images/Dashboard%20Showcase.png" alt="Bank Churn Dashboard showcase" width="900">
 
 
-The findings are packaged as a single-page Power BI dashboard: headline KPIs (total customers, exits, churn rate), the gender split, and churn rate by age band, geography, risk score, activity status (gender and geography), number of products, and credit score band.
+The findings are packaged as a single-page Power BI dashboard: headline KPIs (total customers, exits, share of total exits, churn rate), the gender split, and churn rate by age band, geography, risk score, activity status (gender and geography), number of products, and credit score band. Slicers for activity status, geography, and number of products let you filter the dashboard, and a CustomerId box looks up an individual customer.
 
 **Ways to view it**
 
 https://github.com/user-attachments/assets/eb2510ab-3dca-4dfe-b2a2-f71f44d141e1
-- **Download Video sample of the dashboard** (~25 seconds): [`PowerBI Bank Churn Analytics Video Showcase.mp4`](supplementary/PowerBI%20Dashboard/PowerBI%20Bank%20Churn%20Analytics%20Video%20Showcase.mp4) 
+- **Download Video sample of the dashboard** (~20 seconds): [`PowerBI Bank Churn Analytics Video Showcase.mp4`](supplementary/PowerBI%20Dashboard/PowerBI%20Bank%20Churn%20Analytics%20Video%20Showcase.mp4) 
 - **PDF snapshot** (static, one page): [`Bank Churn Analytics Dashboard.pdf`](Bank%20Churn%20Analytics%20Dashboard.pdf)
 - **Interactive**: download [`Bank Churn Analytics Dashboard.pbix`](supplementary/PowerBI%20Dashboard/Bank%20Churn%20Analytics%20Dashboard.pbix) and open it in Power BI Desktop.
 
