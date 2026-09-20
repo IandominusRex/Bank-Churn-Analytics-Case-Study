@@ -23,6 +23,19 @@ https://github.com/user-attachments/assets/eb2510ab-3dca-4dfe-b2a2-f71f44d141e1
 - **Germany churns at roughly twice the rate of France and Spain** (32.4% vs 16.2-16.7%), and customers over 42 are 29% of the base but 59% of all exits.
 - **A combined 0 to 4 risk score isolates a small, actionable segment**: the 543 customers (5.4%) with 3+ risk factors churn at 78.1%, versus 5.9% for customers with none.
 
+## Further Investigation and Retention Recommendations
+| Target Demographic | Evidence | Proposed Action |
+|---|---|---|
+| Risk Score 3+ | Risk Score Table: 543 customers (5.4% of population), 78.1% Probability of Churn, 21% of all exits | Personal outreach and retention offers. |
+| Risk Score 2 | Risk Score Table: 2,132 customers (21.3% of population), 39.2% Probability of Churn, 41% of all exits | Low-cost preventive touchpoints (Automated outreach) |
+| 3 + Products Owned | 3 products owned: 82.7% Churn. 4 products owned: 100% Churn | Do not push a 3rd or 4th product to customers who have 2/3 products. Review the 2/3 product experiences first and understand whether they are satisfied with the products they currently own |
+| 1 Product Owned | 5,084 customers, 27.7% churn, 69.1% of all exits | My hypothesis is that many of these customers, especially the 905 with a zero balance who churn at 37.3%, opened an account only to trial a product or claim a benefit and left once they had it. Review sign-up promotions and welcome offers to see whether they are attracting customers who never intended to stay before spending on retention offers. |
+| Inactive Members | 48.5% of customers, 64% of all exits | Re-engagement campaigns, welcome back incentives. Focus on inactive women in Germany as they have the highest churn at 44.6% |
+| Germany | 32.4% of customers churned, vs 16% in France and Spain | Further investigation is needed to understand the root cause of why exactly customers in Germany are churning twice as much as customers in France and Spain. |
+| Customers over the age of 42 | 29% of the customer base, 59% of all exits | Further investigation is needed to understand the root cause of why older customers are churning. Another European bank could potentially be offering a 
+
+
+
 ## Overview and Business Task
 
 We have a bank customer churn dataset and want to determine which variables actually affect whether a customer leaves the bank, then turn that into an actionable, prioritized list of drivers rather than just a list of correlations.
@@ -124,13 +137,49 @@ Baseline churn rate: **20.38%**. Females (45.4% of customers) churn at 25.07%; m
 | 1 | 5,084 | 1,409 | 27.7% | 54.8% | 39.7 |
 | 2 | 4,590 | 349 | 7.6% | 55.1% | 37.75 |
 | 3 | 266 | 220 | 82.7% | 44.0% | 43.2 |
-| 4 | 66 | 60 | 100% | 36.7% | 45.68 |
+| 4 | 60 | 60 | 100% | 36.7% | 45.68 |
 
 As customers acquire more products, churn risk rises sharply. 100% of customers with 4 products left the bank. Customers with 3 to 4 products also skew slightly older and more female.
 
 **Hypotheses:**
 - Customers with only 1 product may be in a "trial" phase and leave regardless of experience quality.
 - Customers with 3 to 4 products are likely to churn due to a poor experience across multiple products, suggesting broader dissatisfaction with the bank's offerings rather than any single product.
+
+##### Where do the exits come from?
+
+The churn rate above shows how *likely* each group is to leave. The chart below shows the other side: how much of the total churn each group accounts for. Each bar sums to 100%, so the **Exited** bar reads as "of all 2,038 exits, what share held 1, 2, 3 or 4 products?", with the **Stayed** bar alongside for comparison.
+
+![Share of exited vs stayed customers by number of products](supplementary/figures/numofproducts_exit_share.png)
+
+| NumOfProducts | Exited Customers | % of All Exits | % of Customers | Churn Rate |
+|---|---|---|---|---|
+| 1 | 1,409 | 69.1% | 50.8% | 27.7% |
+| 2 | 349 | 17.1% | 45.9% | 7.6% |
+| 3 | 220 | 10.8% | 2.7% | 82.7% |
+| 4 | 60 | 2.9% | 0.6% | 100% |
+
+**Customers with 1 product are 50.8% of the customer base but 69.1% of all exits** (1,409 of 2,038).
+
+The two views point at different priorities. Customers with 3 to 4 products are the riskiest per customer, but the 1-product group is where most of the lost customers come from. Some of that 69.1% is simply the group's size, since 1-product customers are half the base, but their 27.7% churn rate (vs 7.6% at 2 products) shows they are over-represented in exits and not just proportionally represented.
+
+##### 1-product customers and zero balances
+
+Zero balance accounts exist only in France and Spain (Germany has none), so this comparison is made within those two countries. Holding 1 product is *negatively* related to having a zero balance: only 24.2% of 1-product customers have a zero balance, versus 72.2% of customers with 2 or more products (correlation of -0.48, or -0.39 across all customers). Zero balance accounts are mostly 2-product accounts (71.9%).
+
+The interesting result is churn among 1-product customers in France and Spain:
+
+| Balance | Customers | Exited Customers | Churn Rate |
+|---|---|---|---|
+| Zero balance | 905 | 338 | 37.3% |
+| Funded (above 0) | 2,830 | 493 | 17.4% |
+
+**1-product customers with a zero balance churn at more than twice the rate of funded 1-product customers.** The gap holds after controlling for age, activity status, gender, credit score and geography (odds ratio 2.66, 95% CI 2.22 to 3.19). These 905 customers are about 9% of the customer base but 16.6% of all exits.
+
+The regression earlier did not surface this because balance was entered as a continuous variable with no interaction with the number of products. It was also found after slicing the data several ways, so it should be treated as a lead to validate and not a confirmed driver.
+
+**Hypotheses:**
+- These customers may have merely opened an account to trial a product or claim a sign-up benefit, and left once they had received it. A zero balance (no money was ever moved in), a single product (no wider relationship with the bank) and a high exit rate all fit this story.
+- The data does not support a quick in-and-out stay, however. Those who exited had an average tenure of 4.8 years (median 5) and only 15.4% had 1 year or less, in line with funded 1-product customers who exited (4.9 years, 15.6%). If the hypothesis holds, it points to accounts that were opened for a benefit, left unused and closed later, rather than a short stay. Intent cannot be confirmed from this dataset.
 
 #### 2. Age
 
