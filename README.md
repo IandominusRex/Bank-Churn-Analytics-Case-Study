@@ -2,15 +2,34 @@
 
 Exploratory data analysis and driver identification for customer churn at a retail bank using logistic regression, segmentation, and a combined risk score to find out which customers are leaving and why.
 
+## Power BI Dashboard
+
+<img src="supplementary/PowerBI%20Dashboard%20Images/Dashboard%20Showcase.png" alt="Bank Churn Dashboard showcase" width="900">
+
+The findings are packaged as a single-page Power BI dashboard: headline KPIs (total customers, exits, churn rate), the gender split, and churn rate by age band, geography, risk score, activity status (gender and geography), number of products, and credit score band.
+
+**Ways to view it**
+- **Video sample of the dashboard** (~25 seconds): [`PowerBI Bank Churn Analytics Video Showcase.mp4`](supplementary/PowerBI%20Dashboard/PowerBI%20Bank%20Churn%20Analytics%20Video%20Showcase.mp4)
+- **PDF snapshot** (static, one page): [`Bank Churn Analytics Dashboard.pdf`](Bank%20Churn%20Analytics%20Dashboard.pdf)
+- **Interactive**: download [`Bank Churn Analytics Dashboard.pbix`](supplementary/PowerBI%20Dashboard/Bank%20Churn%20Analytics%20Dashboard.pbix) and open it in Power BI Desktop.
+
+## Headline Findings
+
+- **Baseline churn is 20.38%** (2,038 of 10,000 customers).
+- **Six independent churn drivers** (p < 0.05): number of products, activity status, geography, age, gender, and credit score. Credit card ownership, tenure, balance, and salary were not significant, contrary to the dataset's stated hypotheses.
+- **Germany churns at roughly twice the rate of France and Spain** (32.4% vs 16.2-16.7%), and customers over 42 are 29% of the base but 59% of all exits.
+- **A combined 0 to 4 risk score isolates a small, actionable segment**: the 543 customers (5.4%) with 3+ risk factors churn at 78.1%, versus 5.9% for customers with none.
+
 ## Overview and Business Task
 
-We have a bank customer churn dataset and want to determine which variables actually affect whether a customer leaves the bank, then turn that into an actionable, prioritized list of drivers rather than just a list of correlations. 
+We have a bank customer churn dataset and want to determine which variables actually affect whether a customer leaves the bank, then turn that into an actionable, prioritized list of drivers rather than just a list of correlations.
 
-We subsuquently intend to take these list of drivers to propose reasons and recommendations for the bank. The reason Churn Rate matters so much to a bank is because  Acquiring a new customer costs significantly more than retaining an existing one, so identifying what actually drives customers to leave lets the bank direct retention investment (loyalty programs, targeted campaigns) at the customers and behaviors that matter most, rather than spreading effort evenly across the base.
+We then use this list of drivers to propose reasons and recommendations for the bank. Churn rate matters so much to a bank because acquiring a new customer costs significantly more than retaining an existing one, so identifying what actually drives customers to leave lets the bank direct retention investment (loyalty programs, targeted campaigns) at the customers and behaviors that matter most, rather than spreading effort evenly across the base.
 
 The full technical walkthrough (code, intermediate reasoning, every table) can be referred to in [`EDA.ipynb`](EDA.ipynb). This README summarizes the dataset, method, and findings for anyone who wants the results without reading the notebook.
 
-# Business Questions
+## Business Questions
+
 1. Which customer attributes are drivers of the bank's churn rate?
 2. Does holding a credit card, having a longer tenure, or having a higher balance/salary actually reduce churn risk, as commonly assumed?
 3. Does the number of products a customer holds affect their likelihood of leaving?
@@ -45,7 +64,7 @@ Part of this analysis is testing those assumptions directly against the data rat
 | Satisfaction Score | Customer's rating of their complaint resolution |
 | Card Type | Type of card held |
 | Point Earned | Points earned for card usage |
-| **Exited** | **Target variable**. whether the customer left the bank |
+| **Exited** | **Target variable**: whether the customer left the bank |
 
 RowNumber, CustomerId, and Surname are dropped early as they're record identifiers with no predictive value.
 
@@ -63,7 +82,7 @@ RowNumber, CustomerId, and Surname are dropped early as they're record identifie
 
 ### The Data
 
-The data is mostly clean. One interesting observation from univariate analysis: 36% of accounts have a "0" balance, and every one of them belongs to a customer in France or Spain.  Germany has zero customers with a $0 balance.
+The data is mostly clean. One interesting observation from univariate analysis: 36% of accounts have a "0" balance, and every one of them belongs to a customer in France or Spain. Germany has zero customers with a $0 balance.
 
 **Data outliers:**
 1. CreditScore has a small cluster of low-end outliers below 400, below the Q1 to Q3 range of 580-718.
@@ -74,7 +93,7 @@ The data is mostly clean. One interesting observation from univariate analysis: 
 
 ![Correlation heatmap of numeric fields](supplementary/figures/correlation_heatmap.png)
 
-There is no serious multicollinearity between the continuous variables -  each contributes independent information. The largest correlation is Age and Balance at 0.028, which makes intuitive sense (older customers tend to hold higher balances).
+There is no serious multicollinearity between the continuous variables - each contributes independent information. The largest correlation is Age and Balance at 0.028, which makes intuitive sense (older customers tend to hold higher balances).
 
 ### Regression
 
@@ -108,7 +127,7 @@ As customers acquire more products, churn risk rises sharply. 100% of customers 
 
 **Hypotheses:**
 - Customers with only 1 product may be in a "trial" phase and leave regardless of experience quality.
-- Customers with 3 to 4 products are likely churn due to a poor experience across multiple products, suggesting broader dissatisfaction with the bank's offerings rather than any single product.
+- Customers with 3 to 4 products are likely to churn due to a poor experience across multiple products, suggesting broader dissatisfaction with the bank's offerings rather than any single product.
 
 #### 2. Age
 
@@ -118,20 +137,17 @@ Age was split into 10 quantile bins to examine churn concentration. The plot bel
 
 We can eyeball from the bar chart that older customers are meaningfully more likely to leave the bank.
 
-
 The plot below zooms into the "Exited" customers by age bin as seen above and shows the total sum of exits split by age bin:
 
 ![Sum of exits by age bin](supplementary/figures/age_bin_exit_sum.png)
 
-The customer base is evenly distributed by age (28.94% are 42+), but that 28.94% accounts for **59.13%** of all exits - a total of 2,038 exits (20.38% churn rate), of which 1,205 belong to customers aged 42 and above.
+The customer base is evenly distributed by age (28.94% are over 42), but that 28.94% accounts for **59.13%** of all exits. Of the 2,038 total exits (20.38% churn rate), 1,205 belong to customers over 42.
 
 I investigated whether the age bins split by gender held any significance:
 
 ![Age bin split by gender](supplementary/figures/age_bin_gender.png)
 
 Gender is evenly split across all age bins, so the age effect isn't confounded by gender composition.
-
-
 
 #### 3. Geography — Germany
 
@@ -186,9 +202,9 @@ At 1 to 2 products owned, Germany's ~2x churn premium over France/Spain holds. A
 
 Only the "Very Low" band stands out with a materially higher churn rate. Everything from Low to Very High is roughly flat around 19–22%. Splitting by geography, German customers churn at almost double the rate of France/Spain within every credit score band, reaching 62.5% for Germans in the "Very Low" band. That sample is small (66 customers total), so treat the exact percentage with some caution, but the direction is consistent with every other Germany finding above.
 
-### 6. Combined Risk Score
+#### 6. Combined Risk Score
 
-Four factors came out as independently significant in the revised regression: 
+Four factors came out as independently significant in the revised regression:
 
 **Geography = Germany**, **IsActiveMember = inactive**, **Age > 42**, and **NumOfProducts ≥ 3**. Stacking them into a single 0 to 4 score per customer tests whether these effects compound.
 
@@ -203,17 +219,6 @@ Four factors came out as independently significant in the revised regression:
 | 4 (all present) | 39 | 0.4% | 100.0% |
 
 The four factors compound into a clean, near-monotonic staircase. Customers with zero risk factors churn at less than a third of the base rate; customers with 3+ risk factors (543 customers, 5.4% of the base) churn at 78.1%, which is a segment small enough to act on and large enough to matter.
-
-## Power BI Dashboard
-
-![Bank Churn Dashboard showcase](supplementary/PowerBI%20Dashboard%20Images/Dashboard%20Showcase.png)
-
-The findings above are also packaged as a single-page Power BI dashboard: headline KPIs (total customers, exits, churn rate), the gender split, and churn rate by age band, geography, risk score, activity status (gender and geography), number of products, and credit score band.
-
-**Ways to view it**
-- **Video sample of the dashboard** (~25 seconds): [`PowerBI Bank Churn Analytics Video Showcase.mp4`](supplementary/PowerBI%20Dashboard/PowerBI%20Bank%20Churn%20Analytics%20Video%20Showcase.mp4)
-- **PDF snapshot** (static, one page): [`Bank Churn Analytics Dashboard.pdf`](Bank%20Churn%20Analytics%20Dashboard.pdf)
-- **Interactive**: download [`Bank Churn Analytics Dashboard.pbix`](supplementary/PowerBI%20Dashboard/Bank%20Churn%20Analytics%20Dashboard.pbix) and open it in Power BI Desktop.
 
 ## Project Structure
 
