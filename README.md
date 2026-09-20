@@ -195,15 +195,17 @@ At 1 to 2 products owned, Germany's ~2x churn premium over France/Spain holds. A
 
 | Credit Score Band | Count | Churn Rate |
 |---|---|---|
-| Very Low (350–425) | 66 | 48.48% |
-| Low (425–550) | 1,524 | 21.6% |
-| Moderate (550–675) | 4,279 | 20.43% |
-| High (675–800) | 3,476 | 19.41% |
-| Very High (800–925) | 655 | 19.54% |
+| Very Low (300–425) | 70 | 47.14% |
+| Low (425–550) | 1,551 | 21.6% |
+| Moderate (550–675) | 4,285 | 20.44% |
+| High (675–800) | 3,449 | 19.34% |
+| Very High (800+) | 645 | 19.69% |
+
+Bands include their upper bound (a score of exactly 425 falls in "Very Low"), matching the Power BI dashboard.
 
 ![Churn rate heatmap by credit score band and geography](supplementary/figures/credit_score_churn_heatmap.png)
 
-Only the "Very Low" band stands out with a materially higher churn rate. Everything from Low to Very High is roughly flat around 19–22%. Splitting by geography, German customers churn at almost double the rate of France/Spain within every credit score band, reaching 62.5% for Germans in the "Very Low" band. That sample is small (66 customers total), so treat the exact percentage with some caution, but the direction is consistent with every other Germany finding above.
+Only the "Very Low" band stands out with a materially higher churn rate. Everything from Low to Very High is roughly flat around 19–22%. Splitting by geography, German customers churn at roughly double the rate of France/Spain within every band from Low to Very High. In the "Very Low" band Germans still churn the most (58.8%), but the gap to Spain (52.6%) is much narrower. That band is small (70 customers total, 17 of them German), so treat the exact percentages with some caution, but the direction is consistent with every other Germany finding above.
 
 #### 6. Combined Risk Score
 
