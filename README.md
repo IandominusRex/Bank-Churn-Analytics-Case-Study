@@ -25,7 +25,7 @@ https://github.com/user-attachments/assets/af88d695-22f1-46a6-96ec-9c94f0af2adb
 ## Further Investigation and Retention Recommendations
 | Target Demographic | Evidence | Proposed Action |
 |---|---|---|
-| Risk Score 3+ | Risk Score Table: 543 customers (5.4% of population), 78.1% Probability of Churn, 21% of all exits | Personal outreach and retention offers. These customers are the most likely to exit, and the bank should pay extra attention to them |
+| Risk Score 3+ | Risk Score Table: 543 customers (5.4% of population), 78.1% Probability of Churn, 21% of all exits | Personal outreach and retention offers. These customers are the most likely to exit, and the bank should pay extra attention to them. |
 | Risk Score 2 | Risk Score Table: 2,132 customers (21.3% of population), 39.2% Probability of Churn, 41% of all exits | Low-cost preventive touchpoints (Automated outreach, personal on a case by case basis). These customers make up a substantial proportion of the population, and should be monitored. |
 | 3 + Products Owned | 3 products owned: 82.7% Churn. 4 products owned: 100% Churn | Do not push a 3rd or 4th product to customers who have 2/3 products. Review the 2/3 product experiences first and understand whether they are satisfied with the products they currently own. |
 | 1 Product Owned | 5,084 customers, 27.7% churn, 69.1% of all exits | My hypothesis is that many of these customers, especially the 905 with a zero balance who churn at 37.3%, opened an account only to trial a product or claim a benefit and left once they had it. Review sign-up promotions and welcome offers to see whether they are attracting customers who never intended to stay before spending on retention offers. |
@@ -102,7 +102,7 @@ The data is mostly clean. One interesting observation from univariate analysis: 
 
 **Data outliers:**
 1. CreditScore has a small cluster of low-end outliers below 400, below the Q1 to Q3 range of 580-718.
-2. Age has many high-end outliers above 62, above the Q1–Q3 range of 32–44.
+2. Age has many high-end outliers above 62, above the Q1–Q3 range of 32-44.
 3. Balance's Q1 sits at 0, consistent with the large mass of zero-balance accounts.
 
 #### Correlation heatmap
